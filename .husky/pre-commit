@@ -1,0 +1,8 @@
+
+echo 'Checking for linting errors...'
+pnpm lint || (echo 'Linting errors. Please, fix them before commiting' && exit 1)
+
+echo 'Running tests for errors...'
+pnpm test
+
+echo 'Done!'

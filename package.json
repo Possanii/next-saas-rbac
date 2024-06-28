@@ -4,13 +4,13 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "lint": "turbo lint"
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
-    "turbo": "^2.0.5",
-    "typescript": "^5.4.5"
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "husky": "^9.0.11",
+    "turbo": "^2.0.5"
   },
   "packageManager": "pnpm@8.15.6",
   "engines": {
