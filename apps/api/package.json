@@ -5,6 +5,7 @@
     "dev": "tsx watch src/http/server.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@fastify/cors": "^9.0.1",
     "@prisma/client": "5.16.1",
     "@saas/auth": "workspace:*",
@@ -21,6 +22,9 @@
     "@types/node": "^20.14.9",
     "prisma": "^5.16.1",
     "tsx": "^4.15.8"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "prettier": "@saas/prettier",
   "eslintConfig": {
