@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
+import { BadRequestError } from '../_errors/bad-request-error'
 
 export async function getProfile(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -18,9 +19,6 @@ export async function getProfile(app: FastifyInstance) {
               email: z.string().email(),
               avatarUrl: z.string().url().nullable(),
             }),
-          }),
-          400: z.object({
-            message: z.string(),
           }),
         },
       },
@@ -41,7 +39,7 @@ export async function getProfile(app: FastifyInstance) {
       })
 
       if (!user) {
-        return reply.status(400).send({ message: 'User not found' })
+        throw new BadRequestError('User not found')
       }
 
       return reply.status(200).send({ user })

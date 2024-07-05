@@ -3,6 +3,7 @@ import { hash } from 'bcryptjs'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
+import { BadRequestError } from '../_errors/bad-request-error'
 
 export async function createAccount(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -18,9 +19,6 @@ export async function createAccount(app: FastifyInstance) {
         }),
         response: {
           201: z.undefined(),
-          409: z.object({
-            message: z.string(),
-          }),
         },
       },
     },
@@ -32,9 +30,7 @@ export async function createAccount(app: FastifyInstance) {
       })
 
       if (userWithSameEmail) {
-        return reply
-          .status(409)
-          .send({ message: 'User with same e-mail already exists.' })
+        throw new BadRequestError('User with same e-mail already exists.')
       }
 
       const [, domain] = email.split('@')
