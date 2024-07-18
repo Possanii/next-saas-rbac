@@ -106,7 +106,7 @@ model Organization {
   slug                      String   @unique
   domain                    String?  @unique
   shouldAttachUsersByDomain Boolean  @default(false) @map("should_attach_users_by_domain")
-  avatarUrl                 String   @map("avatar_url")
+  avatarUrl                 String?  @map("avatar_url")
   createdAt                 DateTime @default(now()) @map("created_at")
   updatedAt                 DateTime @updatedAt @map("updated_at")
 
