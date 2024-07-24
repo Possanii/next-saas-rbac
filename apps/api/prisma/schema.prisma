@@ -125,7 +125,7 @@ model Project {
   name         String
   descriptions String
   slug         String   @unique
-  avatarUrl    String   @map("avatar_url")
+  avatarUrl    String?  @map("avatar_url")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
