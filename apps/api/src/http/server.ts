@@ -18,6 +18,7 @@ import { getProfile } from './routes/auth/get-profile'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
 import { createInvite } from './routes/invites/create-invite'
+import { getInvite } from './routes/invites/get-invite'
 import { removeMember } from './routes/members/delete-member'
 import { getMembers } from './routes/members/get-members'
 import { updateMember } from './routes/members/update-member'
@@ -100,6 +101,7 @@ app.register(removeMember)
 
 // invite
 app.register(createInvite)
+app.register(getInvite)
 
 app.listen({ port: env.SERVER_PORT }).then(() => {
   console.log('🔥 HTTP server running')
