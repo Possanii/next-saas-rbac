@@ -6,7 +6,7 @@ import z from 'zod'
 import { BadRequestError } from '../_errors/bad-request-error'
 
 export async function getInvite(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().post(
+  app.withTypeProvider<ZodTypeProvider>().get(
     '/invites/:inviteId',
     {
       schema: {
