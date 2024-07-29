@@ -48,11 +48,15 @@ export default function SignInPage() {
           <Button type="submit" className="w-full">
             Login
           </Button>
+          <Button variant="outline" className="w-full">
+            <Image
+              src={githubIcon}
+              className="mr-2 size-4 dark:invert"
+              alt=""
+            />
+            Login with Github
+          </Button>
         </form>
-        <Button variant="outline" className="w-full">
-          <Image src={githubIcon} className="mr-2 size-4 dark:invert" alt="" />
-          Login with Github
-        </Button>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{' '}
           <Link href="/auth/sign-up" className="underline">
