@@ -1,3 +1,4 @@
+import { cookiesStorage } from '@saas/cookies'
 import { HTTPError } from 'ky'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest) {
   try {
     const { token } = await signInWithGithub({ code })
 
-    cookies().set('saas:token', token, {
+    cookies().set(cookiesStorage.AUTH_TOKEN, token, {
       path: '/',
       maxAge: 60 * 60 * 24 * 7, // 7 days
     })

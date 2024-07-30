@@ -1,0 +1,19 @@
+{
+  "name": "@saas/cookies",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "types": "index.ts",
+  "devDependencies": {
+    "@saas/eslint-config": "workspace:*",
+    "@saas/prettier": "workspace:*",
+    "@saas/tsconfig": "workspace:*",
+    "@types/node": "^20.14.9"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@saas/eslint-config/library"
+    ]
+  },
+  "prettier": "@saas/prettier"
+}
