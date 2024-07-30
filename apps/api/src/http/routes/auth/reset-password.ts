@@ -1,8 +1,10 @@
-import { prisma } from '@/lib/prisma'
 import { hash } from 'bcryptjs'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
+
+import { prisma } from '@/lib/prisma'
+
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
 export async function resetPassword(app: FastifyInstance) {
@@ -53,6 +55,6 @@ export async function resetPassword(app: FastifyInstance) {
       ])
 
       return reply.status(204).send()
-    }
+    },
   )
 }

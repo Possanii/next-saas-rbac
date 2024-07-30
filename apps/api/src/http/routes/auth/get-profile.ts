@@ -1,8 +1,10 @@
-import { auth } from '@/http/middlewares/auth'
-import { prisma } from '@/lib/prisma'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
+
+import { auth } from '@/http/middlewares/auth'
+import { prisma } from '@/lib/prisma'
+
 import { BadRequestError } from '../_errors/bad-request-error'
 
 export async function getProfile(app: FastifyInstance) {
@@ -48,6 +50,6 @@ export async function getProfile(app: FastifyInstance) {
         }
 
         return reply.status(200).send({ user })
-      }
+      },
     )
 }

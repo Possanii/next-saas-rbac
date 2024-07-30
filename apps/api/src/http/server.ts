@@ -10,6 +10,7 @@ import {
   validatorCompiler,
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
+
 import { errorHandler } from './error-handler'
 import { authenticateWithGithub } from './routes/auth/authenticate-with-github'
 import { authenticateWithPassword } from './routes/auth/authenticate-with-password'

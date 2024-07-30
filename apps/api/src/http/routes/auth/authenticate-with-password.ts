@@ -4,6 +4,7 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
 import { prisma } from '@/lib/prisma'
+
 import { BadRequestError } from '../_errors/bad-request-error'
 
 export async function authenticateWithPassword(app: FastifyInstance) {
@@ -37,13 +38,13 @@ export async function authenticateWithPassword(app: FastifyInstance) {
 
       if (userFromEmail.passwordHash === null) {
         throw new BadRequestError(
-          'User does not have a password. Use social login.'
+          'User does not have a password. Use social login.',
         )
       }
 
       const isPasswordValid = await compare(
         password,
-        userFromEmail.passwordHash
+        userFromEmail.passwordHash,
       )
 
       if (!isPasswordValid) {
@@ -58,10 +59,10 @@ export async function authenticateWithPassword(app: FastifyInstance) {
           sign: {
             expiresIn: '7d',
           },
-        }
+        },
       )
 
       return reply.status(201).send({ token })
-    }
+    },
   )
 }

@@ -1,10 +1,12 @@
-import { auth } from '@/http/middlewares/auth'
-import { prisma } from '@/lib/prisma'
-import { getUserPermissions } from '@/utils/get-user-permissions'
 import { roleSchema } from '@saas/auth'
 import type { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
+
+import { auth } from '@/http/middlewares/auth'
+import { prisma } from '@/lib/prisma'
+import { getUserPermissions } from '@/utils/get-user-permissions'
+
 import { BadRequestError } from '../_errors/bad-request-error'
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
@@ -43,7 +45,7 @@ export async function createInvite(app: FastifyInstance) {
 
         if (cannot('create', 'Invite')) {
           throw new UnauthorizedError(
-            "You're not allowed to create new invites."
+            "You're not allowed to create new invites.",
           )
         }
 
@@ -56,7 +58,7 @@ export async function createInvite(app: FastifyInstance) {
           organization.domain === domain
         ) {
           throw new BadRequestError(
-            `Users with ${domain} domain will join your organization automatically on login.`
+            `Users with ${domain} domain will join your organization automatically on login.`,
           )
         }
 
@@ -71,7 +73,7 @@ export async function createInvite(app: FastifyInstance) {
 
         if (inviteWithSameEmail) {
           throw new BadRequestError(
-            `Another invite with same email already exists.`
+            `Another invite with same email already exists.`,
           )
         }
 
@@ -86,7 +88,7 @@ export async function createInvite(app: FastifyInstance) {
 
         if (memberWithSameEmail) {
           throw new BadRequestError(
-            `A member with this email already exists belongs to your organization.`
+            `A member with this email already exists belongs to your organization.`,
           )
         }
 
@@ -102,6 +104,6 @@ export async function createInvite(app: FastifyInstance) {
         return reply.status(201).send({
           inviteId,
         })
-      }
+      },
     )
 }

@@ -1,9 +1,11 @@
+import { env } from '@saas/env'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { BadRequestError } from '../_errors/bad-request-error'
+
 import { prisma } from '@/lib/prisma'
-import { env } from '@saas/env'
+
+import { BadRequestError } from '../_errors/bad-request-error'
 
 export async function authenticateWithGithub(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -26,17 +28,17 @@ export async function authenticateWithGithub(app: FastifyInstance) {
       const { code } = request.body
 
       const githubOAuthURL = new URL(
-        'https://github.com/login/oauth/access_token'
+        'https://github.com/login/oauth/access_token',
       )
 
       githubOAuthURL.searchParams.set('client_id', env.GITHUB_OAUTH_CLIENT_ID)
       githubOAuthURL.searchParams.set(
         'client_secret',
-        env.GITHUB_OAUTH_CLIENT_SECRET
+        env.GITHUB_OAUTH_CLIENT_SECRET,
       )
       githubOAuthURL.searchParams.set(
         'redirect_uri',
-        env.GITHUB_OAUTH_CLIENT_REDIRECT_URL
+        env.GITHUB_OAUTH_CLIENT_REDIRECT_URL,
       )
       githubOAuthURL.searchParams.set('code', code)
 
@@ -49,7 +51,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
 
       const githubAccessTokenData = await githubAccessTokenResponse.json()
 
-      const { access_token } = z
+      const { access_token: accessToken } = z
         .object({
           access_token: z.string(),
           token_type: z.literal('bearer'),
@@ -59,7 +61,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
 
       const githubUserResponse = await fetch('https://github.com/user', {
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       })
 
@@ -81,7 +83,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
 
       if (!email) {
         throw new BadRequestError(
-          'Your GitHub account must have an email address to authenticate.'
+          'Your GitHub account must have an email address to authenticate.',
         )
       }
 
@@ -126,10 +128,10 @@ export async function authenticateWithGithub(app: FastifyInstance) {
           sign: {
             expiresIn: '7d',
           },
-        }
+        },
       )
 
       return reply.status(201).send({ token })
-    }
+    },
   )
 }

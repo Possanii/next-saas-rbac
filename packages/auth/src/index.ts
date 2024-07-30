@@ -1,10 +1,11 @@
 import {
   AbilityBuilder,
   CreateAbility,
-  MongoAbility,
   createMongoAbility,
+  MongoAbility,
 } from '@casl/ability'
 import { z } from 'zod'
+
 import { User } from './models/user'
 import { permissions } from './permissions'
 import { billingSubject } from './subjects/billing'

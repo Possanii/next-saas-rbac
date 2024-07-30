@@ -1,10 +1,12 @@
-import { auth } from '@/http/middlewares/auth'
-import { prisma } from '@/lib/prisma'
-import { getUserPermissions } from '@/utils/get-user-permissions'
 import { roleSchema } from '@saas/auth'
 import type { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
+
+import { auth } from '@/http/middlewares/auth'
+import { prisma } from '@/lib/prisma'
+import { getUserPermissions } from '@/utils/get-user-permissions'
+
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
 export async function getInvites(app: FastifyInstance) {
@@ -36,7 +38,7 @@ export async function getInvites(app: FastifyInstance) {
                       avatarUrl: z.string().url().nullable(),
                     })
                     .nullable(),
-                })
+                }),
               ),
             }),
           },
@@ -52,7 +54,7 @@ export async function getInvites(app: FastifyInstance) {
 
         if (cannot('get', 'Invite')) {
           throw new UnauthorizedError(
-            "You're not allowed to get organization invites."
+            "You're not allowed to get organization invites.",
           )
         }
 
@@ -81,6 +83,6 @@ export async function getInvites(app: FastifyInstance) {
         return reply.status(200).send({
           invites,
         })
-      }
+      },
     )
 }

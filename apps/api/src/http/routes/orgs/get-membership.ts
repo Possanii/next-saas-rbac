@@ -1,8 +1,9 @@
-import { auth } from '@/http/middlewares/auth'
+import { roleSchema } from '@saas/auth'
 import type { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import { roleSchema } from '@saas/auth'
 import z from 'zod'
+
+import { auth } from '@/http/middlewares/auth'
 
 export async function getMembership(app: FastifyInstance) {
   app
@@ -40,6 +41,6 @@ export async function getMembership(app: FastifyInstance) {
             organizationId: membership.organizationId,
           },
         }
-      }
+      },
     )
 }
