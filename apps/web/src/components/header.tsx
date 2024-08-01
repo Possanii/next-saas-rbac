@@ -7,7 +7,9 @@ import { ability } from '@/auth/auth'
 
 import { OrganizationSwitcher } from './organization-switcher'
 import { ProfileButton } from './profile-button'
+import ThemeSwitcher from './theme/theme-switcher'
 import { Input } from './ui/input'
+import { Separator } from './ui/separator'
 
 export async function Header() {
   const permissions = await ability()
@@ -23,7 +25,7 @@ export async function Header() {
               alt="Github Logo"
             />
           </Link>
-          <Slash className="size-3 -rotate-[24deg] text-border dark:invert" />
+          <Slash className="size-4 -rotate-[24deg] text-primary" />
           <OrganizationSwitcher />
 
           {permissions?.can('get', 'Project') && <p>Projetos</p>}
@@ -41,6 +43,8 @@ export async function Header() {
           </form>
 
           <ProfileButton />
+          <Separator orientation="vertical" className="h-5" />
+          <ThemeSwitcher />
         </div>
       </div>
     </header>
