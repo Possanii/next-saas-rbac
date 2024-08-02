@@ -1,5 +1,5 @@
-import ProjectsBoard from './projects-board'
+import OrganizationBoard from './organization-board'
 
 export default async function ProjectsDashboard() {
-  return <ProjectsBoard />
+  return <OrganizationBoard />
 }

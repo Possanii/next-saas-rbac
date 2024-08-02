@@ -2,8 +2,8 @@
 
 import { useParams } from 'next/navigation'
 
-export default function ProjectsBoard() {
+export default function OrganizationBoard() {
   const params = useParams<{ slug: string }>()
 
-  return <div>Projects Dashboard: {params.slug}</div>
+  return <div>Organization Dashboard: {params.slug}</div>
 }
