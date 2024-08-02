@@ -1,5 +1,5 @@
 import { Header } from '@/components/header'
 
-export default function AppHeader() {
+export default function Default() {
   return <Header />
 }

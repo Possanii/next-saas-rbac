@@ -4,5 +4,9 @@
       "mode": "auto"
     }
   ],
-  "cSpell.enabled": true
+  "cSpell.enabled": true,
+  "editor.fontSize": 14,
+  "debug.console.fontSize": 14,
+  "terminal.integrated.fontSize": 14,
+  "editor.accessibilityPageSize": 10
 }
