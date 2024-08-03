@@ -48,22 +48,31 @@ export async function createOrganizationAction(data: FormData) {
   if (!result.success) {
     const errors = result.error.flatten().fieldErrors
 
-    return { success: false, message: null, errors }
+    return { success: false, message: null, errors, payload: null }
   }
 
   try {
     const { name, domain, shouldAttachUsersByDomain } = result.data
 
-    await createOrganization({
+    const { organizationSlug } = await createOrganization({
       name,
       domain,
       shouldAttachUsersByDomain,
     })
+
+    return {
+      success: true,
+      message: 'Successfully saved the organization.',
+      errors: null,
+      payload: {
+        organizationSlug,
+      },
+    }
   } catch (err) {
     if (err instanceof HTTPError) {
       const { message } = await err.response.json<{ message: string }>()
 
-      return { success: false, message, errors: null }
+      return { success: false, message, errors: null, payload: null }
     }
 
     console.log(err)
@@ -72,11 +81,7 @@ export async function createOrganizationAction(data: FormData) {
       success: false,
       message: 'Unexpected error, try again in a few minutes.',
       errors: null,
+      payload: null,
     }
-  }
-  return {
-    success: true,
-    message: 'Successfully saved the organization.',
-    errors: null,
   }
 }

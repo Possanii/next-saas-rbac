@@ -19,7 +19,7 @@ export async function createProjectAction(data: FormData) {
   if (!result.success) {
     const errors = result.error.flatten().fieldErrors
 
-    return { success: false, message: null, errors }
+    return { success: false, message: null, errors, payload: null }
   }
 
   try {
@@ -34,7 +34,7 @@ export async function createProjectAction(data: FormData) {
     if (err instanceof HTTPError) {
       const { message } = await err.response.json<{ message: string }>()
 
-      return { success: false, message, errors: null }
+      return { success: false, message, errors: null, payload: null }
     }
 
     console.log(err)
@@ -43,11 +43,13 @@ export async function createProjectAction(data: FormData) {
       success: false,
       message: 'Unexpected error, try again in a few minutes.',
       errors: null,
+      payload: null,
     }
   }
   return {
     success: true,
     message: 'Successfully saved the project.',
     errors: null,
+    payload: null,
   }
 }

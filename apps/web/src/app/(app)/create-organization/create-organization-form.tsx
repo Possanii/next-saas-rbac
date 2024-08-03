@@ -1,6 +1,7 @@
 'use client'
 
 import { AlertTriangle, Loader2 } from 'lucide-react'
+import { redirect } from 'next/navigation'
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
@@ -14,8 +15,8 @@ import { createOrganizationAction } from './action'
 export function CreateOrganizationForm() {
   const [{ success, message, errors }, handleSubmit, isPending] = useFormState({
     action: createOrganizationAction,
-    onSuccess: () => {
-      console.log('Organization created')
+    onSuccess: (data) => {
+      redirect(`/org/${data!.organizationSlug}`)
     },
     shouldFormReset: true,
   })

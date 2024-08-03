@@ -1,32 +1,34 @@
 import { type FormEvent, useState, useTransition } from 'react'
 import { requestFormReset } from 'react-dom'
 
-interface FormState {
+interface FormState<K extends string, V> {
   success: boolean
   message: string | null
   errors: Record<string, string[]> | null
+  payload: Record<K, V> | null
 }
 
-interface UseFormStateProps {
-  action: (date: FormData) => Promise<FormState>
-  onSuccess: () => Promise<void> | void
-  initialState?: FormState
+interface UseFormStateProps<K extends string, V> {
+  action: (date: FormData) => Promise<FormState<K, V>>
+  onSuccess: (data?: Record<K, V> | null) => Promise<void> | void
+  initialState?: FormState<K, V>
   shouldFormReset?: boolean
 }
 
-export function useFormState({
+export function useFormState<K extends string, V>({
   action,
   onSuccess,
   initialState,
   shouldFormReset = false,
-}: UseFormStateProps) {
+}: UseFormStateProps<K, V>) {
   const [isPending, startTransition] = useTransition()
 
-  const [formState, setFormState] = useState<FormState>(
+  const [formState, setFormState] = useState<FormState<K, V>>(
     initialState ?? {
       success: false,
       message: null,
       errors: null,
+      payload: null,
     },
   )
 
@@ -42,7 +44,7 @@ export function useFormState({
       setFormState(result)
 
       if (result.success === true && onSuccess) {
-        await onSuccess()
+        await onSuccess(result.payload)
       }
     })
 
