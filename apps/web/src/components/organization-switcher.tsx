@@ -14,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
+import { ScrollArea } from './ui/scroll-area'
 
 export async function OrganizationSwitcher() {
   const currentOrg = getCurrentOrg()
@@ -49,33 +50,36 @@ export async function OrganizationSwitcher() {
       >
         {organizations.length > 0 && (
           <>
-            <DropdownMenuGroup className="grid gap-2">
+            <DropdownMenuGroup>
               <DropdownMenuLabel>Organizations</DropdownMenuLabel>
-              {organizations.map((organization) => {
-                return (
-                  <DropdownMenuItem key={organization.id} asChild>
-                    <Link
-                      href={`/org/${organization.slug}`}
-                      className="flex items-center"
-                    >
-                      <Avatar className="mr-2 size-6">
-                        {organization.avatarUrl && (
-                          <AvatarImage src={organization.avatarUrl} />
-                        )}
-                        <AvatarFallback />
-                      </Avatar>
-                      <div className="grid">
-                        <span className="line-clamp-1 text-sm font-medium">
-                          {organization.name}
-                        </span>
-                        <span className="line-clamp-1 text-xs text-muted-foreground">
-                          {organization.slug.toLocaleLowerCase()}
-                        </span>
-                      </div>
-                    </Link>
-                  </DropdownMenuItem>
-                )
-              })}
+              <DropdownMenuSeparator />
+              <ScrollArea className="max-h-52 overflow-auto">
+                {organizations.map((organization) => {
+                  return (
+                    <DropdownMenuItem key={organization.id} asChild>
+                      <Link
+                        href={`/org/${organization.slug}`}
+                        className="flex items-center"
+                      >
+                        <Avatar className="mr-2 size-6">
+                          {organization.avatarUrl && (
+                            <AvatarImage src={organization.avatarUrl} />
+                          )}
+                          <AvatarFallback />
+                        </Avatar>
+                        <div className="grid">
+                          <span className="line-clamp-1 text-sm font-medium">
+                            {organization.name}
+                          </span>
+                          <span className="line-clamp-1 text-xs text-muted-foreground">
+                            {organization.slug.toLocaleLowerCase()}
+                          </span>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                  )
+                })}
+              </ScrollArea>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
           </>

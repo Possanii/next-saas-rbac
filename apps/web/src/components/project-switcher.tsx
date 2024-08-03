@@ -1,5 +1,6 @@
 'use client'
 
+import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { useQuery } from '@tanstack/react-query'
 import { ChevronsUpDown, Loader2, Plus } from 'lucide-react'
 import Link from 'next/link'
@@ -76,33 +77,36 @@ export default function ProjectSwitcher() {
       >
         {data && data.projects.length > 0 && (
           <>
-            <DropdownMenuGroup className="grid gap-2">
+            <DropdownMenuGroup>
               <DropdownMenuLabel>Projects</DropdownMenuLabel>
-              {data.projects.map((project) => {
-                return (
-                  <DropdownMenuItem key={project.id} asChild>
-                    <Link
-                      href={`/org/${orgSlug}/project/${project.slug}`}
-                      className="flex items-center"
-                    >
-                      <Avatar className="mr-2 size-6">
-                        {project.avatarUrl && (
-                          <AvatarImage src={project.avatarUrl} />
-                        )}
-                        <AvatarFallback />
-                      </Avatar>
-                      <div className="grid">
-                        <span className="line-clamp-1 text-sm font-medium">
-                          {project.name}
-                        </span>
-                        <span className="line-clamp-1 text-xs text-muted-foreground">
-                          {project.slug.toLocaleLowerCase()}
-                        </span>
-                      </div>
-                    </Link>
-                  </DropdownMenuItem>
-                )
-              })}
+              <DropdownMenuSeparator />
+              <ScrollArea className="max-h-52 overflow-auto">
+                {data.projects.map((project) => {
+                  return (
+                    <DropdownMenuItem key={project.id} asChild>
+                      <Link
+                        href={`/org/${orgSlug}/project/${project.slug}`}
+                        className="flex items-center"
+                      >
+                        <Avatar className="mr-2 size-6">
+                          {project.avatarUrl && (
+                            <AvatarImage src={project.avatarUrl} />
+                          )}
+                          <AvatarFallback />
+                        </Avatar>
+                        <div className="grid">
+                          <span className="line-clamp-1 text-sm font-medium">
+                            {project.name}
+                          </span>
+                          <span className="line-clamp-1 text-xs text-muted-foreground">
+                            {project.slug.toLocaleLowerCase()}
+                          </span>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                  )
+                })}
+              </ScrollArea>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
           </>
