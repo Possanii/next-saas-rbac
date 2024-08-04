@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useFormState } from '@/hooks/use-form-state'
+import { useQueryProjects } from '@/hooks/use-query/use-query-projects'
 import { queryClient } from '@/lib/react-query'
 
 import { createProjectAction } from './action'
@@ -19,9 +20,7 @@ export function CreateProjectForm() {
   const [{ success, message, errors }, handleSubmit, isPending] = useFormState({
     action: createProjectAction,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [orgSlug, 'projects'],
-      })
+      queryClient.invalidateQueries(useQueryProjects({ org: orgSlug }))
     },
     shouldFormReset: true,
   })

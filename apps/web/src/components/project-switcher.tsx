@@ -6,7 +6,7 @@ import { ChevronsUpDown, Loader2, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
-import { getProjects } from '@/http/get-projects'
+import { useQueryProjects } from '@/hooks/use-query/use-query-projects'
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import {
@@ -26,11 +26,7 @@ export default function ProjectSwitcher() {
     project: string
   }>()
 
-  const { data, isLoading } = useQuery({
-    queryKey: [orgSlug, 'projects'],
-    queryFn: () => getProjects({ slug: orgSlug }),
-    enabled: !!orgSlug,
-  })
+  const { data, isLoading } = useQuery(useQueryProjects({ org: orgSlug }))
 
   const currentProject =
     data && projectSlug
