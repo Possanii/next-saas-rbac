@@ -4,7 +4,7 @@ import { ability } from '@/auth/auth'
 
 import { CreateProjectForm } from './create-project-form'
 
-export default async function CreateOrganization() {
+export default async function CreateProject() {
   const permissions = await ability()
 
   if (permissions?.cannot('create', 'Project')) {

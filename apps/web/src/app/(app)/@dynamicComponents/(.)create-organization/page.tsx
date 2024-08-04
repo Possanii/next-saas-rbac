@@ -2,7 +2,7 @@ import { Header } from '@/components/header'
 import { InterceptedSheetContent } from '@/components/intercepted-sheet-content'
 import { Sheet, SheetHeader } from '@/components/ui/sheet'
 
-import { CreateOrganizationForm } from '../../create-organization/create-organization-form'
+import { CreateOrganizationForm } from '../../org/create-organization-form'
 
 export default function CreateOrganizationSheet() {
   return (

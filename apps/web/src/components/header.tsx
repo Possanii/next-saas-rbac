@@ -17,7 +17,7 @@ export async function Header() {
 
   return (
     <header className="sticky top-0 w-full border-b bg-background">
-      <div className="w-100 m-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-4 md:px-10 2xl:px-0">
+      <div className="w-100 m-auto flex h-[63px] max-w-screen-2xl items-center justify-between gap-4 px-4 md:px-10 2xl:px-0">
         <div className="flex items-center gap-4">
           <Link href="/">
             <Image
