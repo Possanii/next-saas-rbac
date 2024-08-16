@@ -10,16 +10,34 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useFormState } from '@/hooks/use-form-state'
 
-import { createOrganizationAction } from '../create-organization/action'
+import {
+  createOrganizationAction,
+  type OrganizationSchema,
+  updateOrganizationAction,
+} from '../create-organization/action'
 
-export function CreateOrganizationForm() {
+interface ICreateOrganizationFormProps {
+  isUpdating?: boolean
+  initialData?: OrganizationSchema
+}
+
+export function CreateOrganizationForm({
+  isUpdating = false,
+  initialData,
+}: ICreateOrganizationFormProps) {
+  const formAction = isUpdating
+    ? updateOrganizationAction
+    : createOrganizationAction
+
   const [{ success, message, errors }, handleSubmit, isPending] = useFormState({
-    action: createOrganizationAction,
+    action: formAction,
     onSuccess: (data) => {
-      redirect(`/org/${data!.organizationSlug}`)
+      if (data) {
+        redirect(`/org/${data!.organizationSlug}`)
+      }
     },
-    shouldFormReset: true,
   })
+
   return (
     <form onSubmit={handleSubmit} className="grid gap-4">
       {success === false && message && (
@@ -40,7 +58,12 @@ export function CreateOrganizationForm() {
 
       <div className="grid gap-2">
         <Label htmlFor="name">Organization name</Label>
-        <Input id="name" name="name" errors={errors?.name && errors.name[0]} />
+        <Input
+          id="name"
+          name="name"
+          errors={errors?.name && errors.name[0]}
+          defaultValue={initialData?.name}
+        />
       </div>
       <div className="grid gap-2">
         <Label htmlFor="email">E-mail domain</Label>
@@ -50,12 +73,14 @@ export function CreateOrganizationForm() {
           placeholder="example.com"
           inputMode="url"
           errors={errors?.domain && errors.domain[0]}
+          defaultValue={initialData?.domain ?? undefined}
         />
       </div>
       <div className="items-top flex space-x-2">
         <Checkbox
           id="shouldAttachUsersByDomain"
           name="shouldAttachUsersByDomain"
+          defaultChecked={initialData?.shouldAttachUsersByDomain}
         />
         <div className="grid gap-1.5 leading-none">
           <label htmlFor="shouldAttachUsersByDomain" className="space-y-1">
