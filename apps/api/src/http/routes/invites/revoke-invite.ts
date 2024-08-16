@@ -39,7 +39,7 @@ export async function revokeInvite(app: FastifyInstance) {
 
         if (cannot('delete', 'Invite')) {
           throw new UnauthorizedError(
-            "You're not allowed to remoke this invites.",
+            "You're not allowed to revoke this invites.",
           )
         }
 
