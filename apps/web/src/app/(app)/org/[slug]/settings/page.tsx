@@ -9,6 +9,7 @@ import {
 import { getOrganization } from '@/http/get-organization'
 
 import { CreateOrganizationForm } from '../../create-organization-form'
+import { Billing } from './billing'
 import { ShutdownOrganizationButton } from './shutdown-organization-button'
 
 export default async function Settings() {
@@ -48,7 +49,9 @@ export default async function Settings() {
                 Get your organization billing details
               </CardDescription>
             </CardHeader>
-            <CardContent></CardContent>
+            <CardContent>
+              <Billing />
+            </CardContent>
           </Card>
         )}
 
