@@ -3,6 +3,7 @@ import { HTTPError } from 'ky'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { acceptInvite } from '@/http/accept-invite'
 import { signInWithGithub } from '@/http/sign-in-with-github'
 
 export async function GET(request: NextRequest) {
@@ -45,7 +46,14 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    console.error(err)
+    const inviteId = cookies().get('inviteId')?.value
+
+    if (inviteId) {
+      try {
+        await acceptInvite({ inviteId })
+        cookies().delete('inviteId')
+      } catch (err) {}
+    }
 
     const redirectURL = request.nextUrl.clone()
 
