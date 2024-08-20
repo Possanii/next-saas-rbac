@@ -26,7 +26,7 @@ export async function MembersList() {
   const authOrganization = organizationSchema.parse(organization)
 
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-2 space-y-4">
       <h2 className="text-lg font-semibold">Members</h2>
 
       <div className="rounded border">
