@@ -10,7 +10,7 @@ export default async function MembersPage() {
     <div className="space-y-4">
       <h1 className="text-4xl font-medium">Members</h1>
 
-      <div>
+      <div className="grid gap-4">
         {permissions?.can('get', 'Invite') && <Invites />}
         {permissions?.can('get', 'User') && <MembersList />}
       </div>
