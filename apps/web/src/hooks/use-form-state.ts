@@ -10,7 +10,7 @@ interface FormState<K extends string, V> {
 
 interface UseFormStateProps<K extends string, V> {
   action: (date: FormData) => Promise<FormState<K, V>>
-  onSuccess: (data?: Record<K, V> | null) => Promise<void> | void
+  onSuccess?: (data?: Record<K, V> | null) => Promise<void> | void
   initialState?: FormState<K, V>
   shouldFormReset?: boolean
 }
